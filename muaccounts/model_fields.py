@@ -111,7 +111,7 @@ class PickledObject(str):
 
 class PickledObjectField(models.Field):
 	__metaclass__ = models.SubfieldBase
-	
+
 	def to_python(self, value):
 		if isinstance(value, PickledObject):
 			# If the value is a definite pickle; and an error is raised in de-pickling
@@ -123,15 +123,15 @@ class PickledObjectField(models.Field):
 			except:
 				# If an error was raised, just return the plain value
 				return value
-	
-	def get_db_prep_value(self, value):
+
+	def get_db_prep_value(self, value, *args, **kwargs):
 		if value is not None and not isinstance(value, PickledObject):
 			value = PickledObject(pickle.dumps(value))
 		return value
-	
-	def get_internal_type(self): 
+
+	def get_internal_type(self):
 		return 'TextField'
-	
+
 	def get_db_prep_lookup(self, lookup_type, value):
 		if lookup_type == 'exact':
 			value = self.get_db_prep_save(value)

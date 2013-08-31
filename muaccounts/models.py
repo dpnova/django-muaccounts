@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 import signals
 
-from model_fields import RemovableImageField, PickledObjectField
+from .model_fields import RemovableImageField, PickledObjectField
 from themes import DEFAULT_THEME_DICT
 
 def _subdomain_root():
